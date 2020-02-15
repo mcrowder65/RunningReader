@@ -28,8 +28,10 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("\(self.distance)").font(.system(size: 60))
-            Button("Refresh") {
-                self.fetch()
+            if self.distance != "Loading..." {
+                Button("Refresh") {
+                    self.fetch()
+                }                
             }
         }.onAppear(perform: self.onAppear)
     }
