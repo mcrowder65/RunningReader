@@ -28,10 +28,13 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("\(self.distance)").font(.system(size: 60))
+            Button("Refresh") {
+                self.fetch()
+            }
         }.onAppear(perform: self.onAppear)
     }
-    
-    private func onAppear() {
+    private func fetch() {
+        self.distance = "Loading..."
         guard let url = URL(string: "https://running-reader.netlify.com/.netlify/functions/get-week") else {
             print("Invalid URL")
             return
@@ -62,6 +65,9 @@ struct ContentView: View {
             
             self.distance = "Fetch failed: \(error?.localizedDescription ?? "Unknown error")"
         }.resume()
+    }
+    private func onAppear() {
+        self.fetch()
     }
 }
 
